@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/link", async (req, res) => {
-  const allLinks = await link.find();
+  const allLinks = await link.find().sort({"date": -1});
   res.send(allLinks);
 });
 
