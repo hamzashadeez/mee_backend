@@ -30,6 +30,22 @@ app.get("/loan", async (req, res) => {
   res.send(allLoanData);
 });
 
+app.put("/approve/:id", async (req, res) => {
+  // update the status
+  const id = req.params.id;
+  let data = req.body;
+  await loan.updateOne({ _id: id }, { status: "approved" });
+  res.send({ ...data, id });
+});
+
+app.put("/reject/:id", async (req, res) => {
+  // update the status
+  const id = req.params.id;
+  let data = req.body;
+  await loan.updateOne({ _id: id }, { status: "rejected" });
+  res.send({ ...data, id });
+});
+
 app.post("/link", (req, res) => {
   const { url, title } = req.body;
   const newlink = new link({
