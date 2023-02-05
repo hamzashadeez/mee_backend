@@ -34,7 +34,7 @@ app.put("/approve/:id", async (req, res) => {
   // update the status
   const id = req.params.id;
   let data = req.body;
-  await loan.updateOne({ _id: id }, { status: "approved" });
+  await loan.updateOne({ _id: id }, { status: "Approved" });
   res.send({ ...data, id });
 });
 
@@ -42,7 +42,7 @@ app.put("/reject/:id", async (req, res) => {
   // update the status
   const id = req.params.id;
   let data = req.body;
-  await loan.updateOne({ _id: id }, { status: "rejected" });
+  await loan.updateOne({ _id: id }, { status: "Rejected" });
   res.send({ ...data, id });
 });
 
