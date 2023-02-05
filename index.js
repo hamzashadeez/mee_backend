@@ -4,6 +4,9 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { link } from "./LinkSchema.js";
+import { loan } from "./LoanSchema.js";
+import { dummy } from "./data.js";
+
 dotenv.config();
 
 const app = express();
@@ -18,8 +21,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/link", async (req, res) => {
-  const allLinks = await link.find().sort({"date": -1});
+  const allLinks = await link.find().sort({ date: -1 });
   res.send(allLinks);
+});
+
+app.get("/loan", async (req, res) => {
+  const allLoanData = await loan.find().sort({ date: -1 });
+  res.send(allLoanData);
 });
 
 app.post("/link", (req, res) => {
