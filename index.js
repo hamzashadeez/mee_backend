@@ -46,6 +46,15 @@ app.put("/reject/:id", async (req, res) => {
   res.send({ ...data, id });
 });
 
+//
+app.post("/loan", (req, res) => {
+  const data = req.body;
+  const newloan = new loan(data);
+  newloan.save();
+  res.status(200).json(newloan);
+});
+//
+
 app.post("/link", (req, res) => {
   const { url, title } = req.body;
   const newlink = new link({
