@@ -12,6 +12,7 @@ const Scholar = new Schema({
   state: String,
   noOfWifes: String,
   noOfChildren: String,
+  status: String,
   date: { type: Date, default: Date.now },
 });
 
