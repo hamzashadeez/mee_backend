@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import { link } from "./LinkSchema.js";
 import { loan } from "./LoanSchema.js";
 import { dummy } from "./data.js";
+import { scholar } from "./scholarSchema.js";
 
 dotenv.config();
 
@@ -49,9 +50,11 @@ app.put("/reject/:id", async (req, res) => {
 //
 app.post("/loan", (req, res) => {
   const data = req.body;
-  const newloan = new loan(data);
-  newloan.save();
-  res.status(200).json(newloan);
+  // const newloan = new loan(data);
+  // newloan.save();
+  res.send({ ...data });
+
+  // res.status(200).json(newloan);
 });
 //
 
@@ -64,6 +67,22 @@ app.post("/link", (req, res) => {
   newlink.save();
   res.status(200).json(newlink);
 });
+
+// For DYDA Project
+//          //        //
+app.post("/dyda", (req, res) => {
+  const body = req.body;
+  const newscholar = new scholar(body);
+  newscholar.save();
+  res.status(200).json(newscholar);
+});
+
+app.get("/dyda", async (req, res) => {
+  const allData = await scholar.find();
+  res.send(allData);
+});
+//          //        //
+// End Of DYDA Project
 
 // MONGODB
 mongoose
