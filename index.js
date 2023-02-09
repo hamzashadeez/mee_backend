@@ -86,7 +86,7 @@ app.get("/dyda/:id", async (req, res) => {
 
 //
 //
-app.put("dyda/reject/:id", async (req, res) => {
+app.put("/dyda/reject/:id", async (req, res) => {
   // update the status
   const id = req.params.id;
   let data = req.body;
@@ -95,12 +95,12 @@ app.put("dyda/reject/:id", async (req, res) => {
 });
 //
 //
-app.put("dyda/approve/:id", async (req, res) => {
+app.put("/dyda/approve/:id", async (req, res) => {
   // update the status
   const id = req.params.id;
   // let data = req.body;
-  await scholar.updateOne({ _id: id }, { status: "Approved" });
-  res.send({ id });
+  let data = await scholar.updateOne({ _id: id }, { status: "Approved" });
+  res.send({ id, data });
 });
 //
 //
