@@ -77,6 +77,33 @@ app.post("/dyda", (req, res) => {
   res.status(200).json(newscholar);
 });
 
+app.get("/dyda/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = await scholar.findById(id);
+  // const allData = await scholar.find();
+  res.send(data);
+});
+
+//
+//
+app.put("dyda/reject/:id", async (req, res) => {
+  // update the status
+  const id = req.params.id;
+  let data = req.body;
+  await scholar.updateOne({ _id: id }, { status: "Rejected" });
+  res.send({ ...data, id });
+});
+//
+//
+app.put("dyda/approve/:id", async (req, res) => {
+  // update the status
+  const id = req.params.id;
+  // let data = req.body;
+  await scholar.updateOne({ _id: id }, { status: "Approved" });
+  res.send({ id });
+});
+//
+//
 app.get("/dyda", async (req, res) => {
   const allData = await scholar.find();
   res.send(allData);
