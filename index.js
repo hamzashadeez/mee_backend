@@ -7,6 +7,7 @@ import { link } from "./LinkSchema.js";
 import { loan } from "./LoanSchema.js";
 import { dummy } from "./data.js";
 import { scholar } from "./scholarSchema.js";
+import { plates } from "./plates.js";
 
 dotenv.config();
 
@@ -110,6 +111,28 @@ app.get("/dyda", async (req, res) => {
 });
 //          //        //
 // End Of DYDA Project
+
+// get plates number array
+app.get("/plates", (req, res) => {
+  res.send(plates);
+});
+app.get("/plates/:number", (req, res) => {
+  try {
+    const number = req.params.number;
+    for (let i = 0; i < plates.length; i++) {
+      if (number === plates[i].number) {
+        return res.status(200).send(plates[i]);
+      } else {
+        return res.status(500).send({
+          error:
+            "Sorry Either not found in our database or Bad Format Provided",
+        });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 // MONGODB
 mongoose
