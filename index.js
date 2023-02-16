@@ -8,6 +8,7 @@ import { loan } from "./LoanSchema.js";
 import { dummy } from "./data.js";
 import { scholar } from "./scholarSchema.js";
 import { plates } from "./plates.js";
+import { learn } from "./learnSchema.js";
 
 dotenv.config();
 
@@ -109,6 +110,27 @@ app.get("/dyda", async (req, res) => {
   const allData = await scholar.find();
   res.send(allData);
 });
+
+app.get("/elearn", async (req, res) => {
+  let id = "63ee2db3218666fd9a1d793d";
+  let data = await learn.findById(id);
+  res.send(data);
+});
+
+app.put("/elearn", async (req, res) => {
+  let id = "63ee2db3218666fd9a1d793d";
+  let doc = await learn.findById(id);
+  let data = await learn.updateOne(
+    { _id: id },
+    {
+      visits: doc.visits + 1,
+      android: doc.android + 1,
+      windows: doc.windows + 1,
+    }
+  );
+  res.send(data);
+});
+
 //          //        //
 // End Of DYDA Project
 
