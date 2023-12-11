@@ -9,6 +9,7 @@ import { dummy } from "./data.js";
 import { scholar } from "./scholarSchema.js";
 import { plates } from "./plates.js";
 import { learn } from "./learnSchema.js";
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
@@ -153,6 +154,36 @@ app.get("/plates/:number", (req, res) => {
     }
   } catch (error) {
     console.log(error);
+  }
+});
+
+//send email message
+app.post("/sendMail", async (req, res) => {
+  const { from, to, subject, text } = req.body;
+  // utils/email.j
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail", // Replace with your preferred service
+    auth: {
+      user: "hahmad1178@gmail.com", // Replace with your email address
+      pass: "yicb onwv mblr vmaw", // Replace with your password azteyucwokgflkeq
+    },
+  });
+
+  try {
+    await transporter.sendMail({
+      from,
+      to,
+      subject,
+      text,
+    });
+    console.log("Email sent successfully!");
+    res.status(200).json({ message: "Email sent successfully!" });
+  } catch (err) {
+    console.error("Error sending email:", err);
+    res.status(500).send({
+      error: err,
+    });
   }
 });
 
